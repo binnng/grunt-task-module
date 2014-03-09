@@ -1,10 +1,12 @@
-module.exports = (grunt, path, pkg) ->
+module.exports = (grunt) ->
 
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-coffee');
+
+  path = grunt.config.get "path"
 
   grunt.registerTask 'book:css', [
   	'less:book'

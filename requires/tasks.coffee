@@ -1,7 +1,18 @@
-fs = require 'fs'
-
 taskPath = "#{__dirname}/../tasks/"
-taskFiles = (fs.readdirSync taskPath).filter (file) -> return yes if file.match /\.coffee$/
-taskFiles = taskFiles.map (file) -> return "#{file.replace '.coffee', ''}"
 
-module.exports = taskFiles
+tasks = (grunt) ->
+	tasks = taskFiles = []
+	grunt.file.recurse taskPath, (abspath, rootdir, subdir, filename) ->
+		taskFiles.push filename
+
+	taskFiles = grunt.file.match [
+		"*.coffee"
+		"*.js"
+	], taskFiles
+
+	tasks = taskFiles.map (task) ->
+		task.replace /\.js|\.coffee$/, '' if tasks.indexOf task < 0
+
+	tasks
+
+module.exports = tasks
