@@ -36,5 +36,50 @@ grunt-task-module
   ```
   grunt.initConfig config
   ```
+  
+###tasks
+
+每一个`task`格式大致这样：
+
+```
+exports = (grunt) ->
+  grunt.loadNpmTasks 'grunt-contrib-uglify'
+
+  grunt.registerTask 'bugoo', 'uglify:bugoo'
+
+  path = grunt.config.get "path"
+
+  uglify:
+    bugoo:
+      src: "#{path.jsdev}bugoo.js"
+      dest: "#{path.jslib}min.bugoo.js"
+
+module.exports = exports
+```
+
+1. 加载grunt依赖任务处理模块
+
+```
+grunt.loadNpmTasks 'grunt-contrib-uglify'
+```
+
+2. 注册grunt任务
+
+```
+grunt.registerTask 'bugoo', 'uglify:bugoo'
+```
+
+3. 导出任务配置对象：
+
+```
+{
+  uglify: {
+    bugoo: {
+      src: path.jsdev + "bugoo.js"
+      dest: path.jslib + "min.bugoo.js"
+    }
+  }
+}
+```
 
 具体可以看看这篇博客[我是如何将冗长的Grunt任务拆分的](http://blog.segmentfault.com/laopopo/1190000000442112)
